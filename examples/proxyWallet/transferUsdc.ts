@@ -23,8 +23,8 @@ async function main() {
     console.log(`Address: ${wallet.address}`)
 
     // =============== Replace the values below with your values ==========================
-    const to = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"; // Replace with your destination address
-    const value = ethers.utils.parseUnits("0.10", USDCE_DIGITS); // Replace with your transfer value
+    const to = ""; // Replace with your destination address
+    const value = ethers.utils.parseUnits("1", USDCE_DIGITS); // Replace with your transfer value
     const data = encodeErc20Transfer(to, value);
     
     const proxyTxn = {

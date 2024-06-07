@@ -26,7 +26,7 @@ async function main() {
     console.log(`Address: ${wallet.address}`)
 
     // =============== Replace the values below with your values ==========================
-    const spender = wallet.address; // "0x"; // Replace with your spender address
+    const spender = ""; // Replace with your spender address
     const data = encodeErc1155Approve(spender, true);
     
     const proxyTxn = {

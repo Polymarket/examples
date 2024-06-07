@@ -26,7 +26,7 @@ async function main() {
     console.log(`Address: ${wallet.address}`)
 
     // =============== Replace the values below with your values ==========================
-    const spender = "0x"; // Replace with your spender address
+    const spender = ""; // Replace with your spender address
     const approvalAmount = ethers.constants.MaxUint256;
     const data = encodeErc20Approve(spender, approvalAmount);
     

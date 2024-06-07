@@ -26,7 +26,7 @@ async function main() {
     const safe = new ethers.Contract(safeAddress, safeAbi, wallet);
 
     const to = ""; // Replace with your destination address
-    const value = ethers.utils.parseUnits("0.10", USDCE_DIGITS); // Replace with your transfer value
+    const value = ethers.utils.parseUnits("1", USDCE_DIGITS); // Replace with your transfer value
     const data = encodeErc20Transfer(to, value);
     
     const token = USDC_ADDRESS;

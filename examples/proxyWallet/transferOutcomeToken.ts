@@ -26,9 +26,9 @@ async function main() {
     console.log(`Address: ${wallet.address}`)
 
     // =============== Replace the values below with your values ==========================
-    const from = "0x6b7A97470a0C37F5B8A400C211C1FA84d8b26F31"; // Proxy address
-    const to = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"; // Replace with your destination address
-    const tokenId = "1343197538147866997676250008839231694243646439454152539053893078719042421992"; // Replace with the tokenId to transfer 
+    const from = ""; // Replace with your Proxy address
+    const to = ""; // Replace with your destination address
+    const tokenId = ""; // Replace with the tokenId to transfer 
     const value = ethers.utils.parseUnits("1", USDCE_DIGITS); // Replace with your transfer value
     
     const data = encodeErc1155TransferFrom(from, to, tokenId, value);

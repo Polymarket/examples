@@ -22,10 +22,9 @@ async function main() {
 
     // =============== Replace the values below with your values ==========================
     // Safe
-    const safeAddress = "0x6d8c4e9adf5748af82dabe2c6225207770d6b4fa"; //""; // Replace with your safe address
+    const safeAddress = ""; // Replace with your safe address
     const safe = new ethers.Contract(safeAddress, safeAbi, wallet);
-
-    const spender = "0x6e0c80c90ea6c15917308f820eac91ce2724b5b5"; // ""; // Replace with your destination address
+    const spender = ""; // Replace with your destination address
     const data = encodeErc1155Approve(spender, true);
     
     const token = CONDITIONAL_TOKENS_FRAMEWORK_ADDRESS;
