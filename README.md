@@ -1,5 +1,5 @@
-# polymarket-proxy-examples
+# polymarket-examples
 
-Interacting with Polymarket Proxy Wallets programmatically
+Code examples for Polymarket
 
 See [examples](./examples/) for more information
