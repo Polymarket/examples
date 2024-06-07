@@ -27,6 +27,7 @@ async function main() {
     const to = ""; // Replace with your destination address
     const tokenId = ""; // Replace with your tokenId
     const value = ethers.utils.parseUnits("1", USDCE_DIGITS); // Replace with your transfer value
+    // Transfers an ERC1155 token out of the Safe to the destination address
     const data = encodeErc1155TransferFrom(safeAddress, to, tokenId, value);
     
     const token = CONDITIONAL_TOKENS_FRAMEWORK_ADDRESS;

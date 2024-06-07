@@ -27,6 +27,7 @@ async function main() {
 
     const spender = ""; // Replace with your destination address
     const approvalAmount = ethers.constants.MaxUint256;
+    // Approves a spender for an ERC20 token on the Safe
     const data = encodeErc20Approve(spender, approvalAmount);
     
     const token = USDC_ADDRESS;

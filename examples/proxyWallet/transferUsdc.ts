@@ -25,6 +25,8 @@ async function main() {
     // =============== Replace the values below with your values ==========================
     const to = ""; // Replace with your destination address
     const value = ethers.utils.parseUnits("1", USDCE_DIGITS); // Replace with your transfer value
+    
+    // Transfers an ERC20 token out of the proxy wallet to the destination address
     const data = encodeErc20Transfer(to, value);
     
     const proxyTxn = {

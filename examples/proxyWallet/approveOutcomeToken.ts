@@ -27,6 +27,7 @@ async function main() {
 
     // =============== Replace the values below with your values ==========================
     const spender = ""; // Replace with your spender address
+    // Approves a spender for an ERC1155 token on the Proxy Wallet
     const data = encodeErc1155Approve(spender, true);
     
     const proxyTxn = {

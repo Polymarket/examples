@@ -28,6 +28,8 @@ async function main() {
     // =============== Replace the values below with your values ==========================
     const spender = ""; // Replace with your spender address
     const approvalAmount = ethers.constants.MaxUint256;
+    
+    // Approves a spender for an ERC20 token on the Proxy Wallet
     const data = encodeErc20Approve(spender, approvalAmount);
     
     const proxyTxn = {

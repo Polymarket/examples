@@ -31,6 +31,7 @@ async function main() {
     const tokenId = ""; // Replace with the tokenId to transfer 
     const value = ethers.utils.parseUnits("1", USDCE_DIGITS); // Replace with your transfer value
     
+    // Transfers an ERC155 token out of the proxy wallet to the destination address
     const data = encodeErc1155TransferFrom(from, to, tokenId, value);
     
     const proxyTxn = {

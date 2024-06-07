@@ -25,6 +25,7 @@ async function main() {
     const safeAddress = ""; // Replace with your safe address
     const safe = new ethers.Contract(safeAddress, safeAbi, wallet);
     const spender = ""; // Replace with your destination address
+    // Approves a spender for an ERC1155 token on the Safe
     const data = encodeErc1155Approve(spender, true);
     
     const token = CONDITIONAL_TOKENS_FRAMEWORK_ADDRESS;

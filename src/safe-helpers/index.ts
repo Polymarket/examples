@@ -2,6 +2,12 @@ import { TransactionResponse } from "@ethersproject/abstract-provider";
 import { BigNumber, Contract, ethers, Wallet } from "ethers";
 
 
+interface SplitSignature {
+    r: string,
+    s: string,
+    v: string,
+}
+
 function joinHexData(hexData: string[]): string {
     return `0x${hexData
         .map(hex => {
@@ -49,7 +55,7 @@ function abiEncodePacked(...params: { type: string; value: any }[]): string {
     );
 }
 
-async function signTransactionHash(signer: Wallet, message: string) {
+async function signTransactionHash(signer: Wallet, message: string): Promise<SplitSignature> {
     const messageArray = ethers.utils.arrayify(message);
     let sig = await signer.signMessage(messageArray);
     let sigV = parseInt(sig.slice(-2), 16);
@@ -88,7 +94,6 @@ export const signAndExecuteSafeTransaction = async (
     };
 
     const nonce = await safe.nonce();
-    const adjustedNonce = nonce;
     const value = "0";
     const safeTxGas = "0";
     const baseGas = "0";
@@ -107,7 +112,7 @@ export const signAndExecuteSafeTransaction = async (
         gasPrice,
         gasToken,
         refundReceiver,
-        adjustedNonce
+        nonce
     );
 
     const rsvSignature = await signTransactionHash(signer, txHash);
