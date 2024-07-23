@@ -1,6 +1,12 @@
 import { TransactionResponse } from "@ethersproject/abstract-provider";
 import { BigNumber, Contract, ethers, Wallet } from "ethers";
+import { SafeTransaction, OperationType } from "../types";
+import { Interface } from "ethers/lib/utils";
+import { multisendAbi } from "../abis"
+import { SAFE_MULTISEND_ADDRESS } from "../constants";
 
+
+const SAFE_MULTISEND_INTERFACE = new Interface(multisendAbi);
 
 interface SplitSignature {
     r: string,
@@ -15,6 +21,10 @@ function joinHexData(hexData: string[]): string {
             return stripped.length % 2 === 0 ? stripped : "0" + stripped;
         })
         .join("")}`;
+}
+
+function getHexDataLength(hexData: string): number {
+    return Math.ceil((hexData.startsWith("0x") ? hexData.length - 2 : hexData.length) / 2);
 }
 
 function abiEncodePacked(...params: { type: string; value: any }[]): string {
@@ -82,11 +92,45 @@ async function signTransactionHash(signer: Wallet, message: string): Promise<Spl
     };
 }
 
+const createSafeMultisendTransaction = (txns: SafeTransaction[]): SafeTransaction => {
+    const data = SAFE_MULTISEND_INTERFACE.encodeFunctionData("multiSend", [
+        joinHexData(
+            txns.map(tx =>
+                abiEncodePacked(
+                    { type: "uint8", value: tx.operation },
+                    { type: "address", value: tx.to },
+                    { type: "uint256", value: tx.value },
+                    { type: "uint256", value: getHexDataLength(tx.data) },
+                    { type: "bytes", value: tx.data },
+                ),
+            ),
+        ),
+    ]);
+
+    return {
+        to: SAFE_MULTISEND_ADDRESS,
+        value: "0",
+        data: data,
+        operation: OperationType.DelegateCall,
+    }
+}
+
+
+
+export const aggregateTransaction = (txns: SafeTransaction[]): SafeTransaction => {
+    let transaction: SafeTransaction;
+    if(txns.length == 1) {
+        transaction = txns[0];
+    } else {
+        transaction = createSafeMultisendTransaction(txns);
+    }
+    return transaction;
+}
+
 export const signAndExecuteSafeTransaction = async (
     signer: Wallet,
     safe: Contract,
-    to: string,
-    data: string,
+    txn: SafeTransaction,
     overrides?: ethers.Overrides,
 ) : Promise<TransactionResponse> => {
     if( overrides == null) {
@@ -94,19 +138,17 @@ export const signAndExecuteSafeTransaction = async (
     };
 
     const nonce = await safe.nonce();
-    const value = "0";
     const safeTxGas = "0";
     const baseGas = "0";
     const gasPrice = "0";
     const gasToken = ethers.constants.AddressZero;
     const refundReceiver = ethers.constants.AddressZero;
-    const operation = 0;
 
     const txHash = await safe.getTransactionHash(
-        to,
-        value,
-        data,
-        operation,
+        txn.to,
+        txn.value,
+        txn.data,
+        txn.operation,
         safeTxGas,
         baseGas,
         gasPrice,
@@ -123,10 +165,10 @@ export const signAndExecuteSafeTransaction = async (
     );
 
     return safe.execTransaction(
-        to,
-        value,
-        data,
-        operation,
+        txn.to,
+        txn.value,
+        txn.data,
+        txn.operation,
         safeTxGas,
         baseGas,
         gasPrice,

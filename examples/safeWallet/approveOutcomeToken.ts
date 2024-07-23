@@ -6,10 +6,10 @@ import { safeAbi } from "../../src/abis";
 import { CONDITIONAL_TOKENS_FRAMEWORK_ADDRESS } from "../../src/constants";
 import { encodeErc1155Approve } from "../../src/encode";
 import { signAndExecuteSafeTransaction } from "../../src/safe-helpers";
+import { OperationType, SafeTransaction } from "../../src/types";
 
 
 dotenvConfig({ path: resolve(__dirname, "../../.env") });
-
 
 async function main() {
     console.log(`Starting...`);
@@ -25,11 +25,16 @@ async function main() {
     const safeAddress = ""; // Replace with your safe address
     const safe = new ethers.Contract(safeAddress, safeAbi, wallet);
     const spender = ""; // Replace with your destination address
+
     // Approves a spender for an ERC1155 token on the Safe
-    const data = encodeErc1155Approve(spender, true);
-    
-    const token = CONDITIONAL_TOKENS_FRAMEWORK_ADDRESS;
-    const txn = await signAndExecuteSafeTransaction(wallet, safe, token, data, {gasPrice: 200000000000});
+    const safeTxn: SafeTransaction = {
+        to: CONDITIONAL_TOKENS_FRAMEWORK_ADDRESS,
+        operation: OperationType.Call,
+        data: encodeErc1155Approve(spender, true),
+        value: "0",
+    };
+
+    const txn = await signAndExecuteSafeTransaction(wallet, safe, safeTxn, {gasPrice: 200000000000});
     
     console.log(`Txn hash: ${txn.hash}`);
     await txn.wait();
