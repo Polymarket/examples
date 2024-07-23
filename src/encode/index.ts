@@ -6,7 +6,6 @@ import { erc20Abi, erc1155Abi } from "../abis"
 const ERC20_INTERFACE = new Interface(erc20Abi);
 const ERC1155_INTERFACE = new Interface(erc1155Abi);
 
-
 export const encodeErc20Transfer = (to: string, value: BigNumber): string => {
     return ERC20_INTERFACE.encodeFunctionData(
         "transfer(address,uint256)",
@@ -34,4 +33,3 @@ export const encodeErc1155Approve = (spender: string, approval: boolean): string
         [spender, approval],
     );
 }
-

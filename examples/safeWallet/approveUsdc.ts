@@ -6,6 +6,7 @@ import { safeAbi } from "../../src/abis";
 import { USDC_ADDRESS } from "../../src/constants";
 import { encodeErc20Approve } from "../../src/encode";
 import { signAndExecuteSafeTransaction } from "../../src/safe-helpers";
+import { SafeTransaction, OperationType } from "../../src/types";
 
 
 dotenvConfig({ path: resolve(__dirname, "../../.env") });
@@ -30,8 +31,14 @@ async function main() {
     // Approves a spender for an ERC20 token on the Safe
     const data = encodeErc20Approve(spender, approvalAmount);
     
-    const token = USDC_ADDRESS;
-    const txn = await signAndExecuteSafeTransaction(wallet, safe, token, data, {gasPrice: 200000000000});
+    const safeTxn: SafeTransaction = {
+        to: USDC_ADDRESS,
+        data: data,
+        operation: OperationType.Call,
+        value: "0",
+    };
+
+    const txn = await signAndExecuteSafeTransaction(wallet, safe, safeTxn, {gasPrice: 200000000000});
     
     console.log(`Txn hash: ${txn.hash}`);
     await txn.wait();
