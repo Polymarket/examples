@@ -33,7 +33,6 @@ async function main() {
     const conditionId = ""; // Replace with the market conditionId
     const negRisk = false; // Replace with the neg risk status of the market
 
-    // Split
     const data = encodeMerge(USDC_ADDRESS, conditionId, ethers.utils.parseUnits(mergeAmount, USDCE_DIGITS));
     const to = negRisk ? NEG_RISK_ADAPTER_ADDRESS: CONDITIONAL_TOKENS_FRAMEWORK_ADDRESS;
 

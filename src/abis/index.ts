@@ -4,3 +4,4 @@ export * from "./multisendAbi";
 export * from "./proxyFactoryAbi";
 export * from "./safeAbi";
 export * from "./ctfAbi";
+export * from "./negRiskAdapterAbi";

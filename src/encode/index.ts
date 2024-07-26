@@ -1,11 +1,13 @@
 import { BigNumber, ethers } from "ethers";
 import { Interface } from "ethers/lib/utils";
-import { erc20Abi, erc1155Abi, ctfAbi } from "../abis"
+import { erc20Abi, erc1155Abi, ctfAbi, negRiskAdapterAbi } from "../abis"
 
 
 const ERC20_INTERFACE = new Interface(erc20Abi);
 const ERC1155_INTERFACE = new Interface(erc1155Abi);
-const CTF_INTERFACE = new Interface(ctfAbi)
+const CTF_INTERFACE = new Interface(ctfAbi);
+const NEG_RISK_INTERFACE = new Interface(negRiskAdapterAbi);
+
 
 export const encodeErc20Transfer = (to: string, value: BigNumber): string => {
     return ERC20_INTERFACE.encodeFunctionData(
@@ -53,5 +55,12 @@ export const encodeRedeem = (collateralToken: string, conditionId: string) : str
     return CTF_INTERFACE.encodeFunctionData(
         "redeemPositions(address,bytes32,bytes32,uint256[])",
         [collateralToken, ethers.constants.HashZero, conditionId, [1, 2]],
+    );
+}
+
+export const encodeRedeemNegRisk = (conditionId: string, amounts: string[]): string => {
+    return NEG_RISK_INTERFACE.encodeFunctionData(
+        "redeemPositions(bytes32,uint256[])",
+        [conditionId, amounts],
     );
 }
