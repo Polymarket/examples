@@ -18,3 +18,12 @@ Magic accounts use Proxy Wallets on the backend
 Code examples for interacting with Safe Wallets are available [here](./examples/safeWallet/README.md)
 
 Browser wallets(Metamask, Coinbase Wallet, etc) use Safes on the backend
+
+
+### Usage
+Populate your .env file based on .env.example.
+
+Run examples using ts-node:
+```bash
+ts-node ts-node examples/safeWallet/split.ts
+```
