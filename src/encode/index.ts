@@ -1,10 +1,11 @@
 import { BigNumber, ethers } from "ethers";
 import { Interface } from "ethers/lib/utils";
-import { erc20Abi, erc1155Abi } from "../abis"
+import { erc20Abi, erc1155Abi, ctfAbi } from "../abis"
 
 
 const ERC20_INTERFACE = new Interface(erc20Abi);
 const ERC1155_INTERFACE = new Interface(erc1155Abi);
+const CTF_INTERFACE = new Interface(ctfAbi)
 
 export const encodeErc20Transfer = (to: string, value: BigNumber): string => {
     return ERC20_INTERFACE.encodeFunctionData(
@@ -31,5 +32,26 @@ export const encodeErc1155Approve = (spender: string, approval: boolean): string
     return ERC1155_INTERFACE.encodeFunctionData(
         "setApprovalForAll(address,bool)",
         [spender, approval],
+    );
+}
+
+export const encodeSplit = (collateralToken: string, conditionId: string, amount: BigNumber) : string => {
+    return CTF_INTERFACE.encodeFunctionData(
+        "splitPosition(address,bytes32,bytes32,uint256[],uint256)",
+        [collateralToken, ethers.constants.HashZero, conditionId, [1, 2], amount],
+    );
+}
+
+export const encodeMerge = (collateralToken: string, conditionId: string, amount: BigNumber) : string => {
+    return CTF_INTERFACE.encodeFunctionData(
+        "mergePositions(address,bytes32,bytes32,uint256[],uint256)",
+        [collateralToken, ethers.constants.HashZero, conditionId, [1, 2], amount],
+    );
+}
+
+export const encodeRedeem = (collateralToken: string, conditionId: string) : string => {
+    return CTF_INTERFACE.encodeFunctionData(
+        "redeemPositions(address,bytes32,bytes32,uint256[])",
+        [collateralToken, ethers.constants.HashZero, conditionId, [1, 2]],
     );
 }

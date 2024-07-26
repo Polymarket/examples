@@ -19,6 +19,7 @@ dotenvConfig({ path: resolve(__dirname, "../../.env") });
 // USDC on the CTF Contract
 // USDC on the CTF Exchange Contract
 // USDC on the Neg Risk Exchange Contract
+// USDC on the Neg Risk Adapter contract
 // CTF Outcome Tokens on the CTF Exchange Contract
 // CTF Outcome Tokens on the Neg Risk Exchange Contract
 async function main() {
@@ -37,11 +38,13 @@ async function main() {
     const usdcSpenders = [
         "0x4D97DCd97eC945f40cF65F87097ACe5EA0476045", // Conditional Tokens Framework
         "0x4bFb41d5B3570DeFd03C39a9A4D8dE6Bd8B8982E", // CTF Exchange
+        "0xd91E80cF2E7be2e162c6513ceD06f1dD0dA35296", // Neg Risk Adapter
         "0xC5d563A36AE78145C45a50134d48A1215220f80a", // Neg Risk CTF Exchange
     ];
 
     const outcomeTokenSpenders = [
         "0x4bFb41d5B3570DeFd03C39a9A4D8dE6Bd8B8982E", // CTF Exchange
+        "0xd91E80cF2E7be2e162c6513ceD06f1dD0dA35296", // Neg Risk Adapter
         "0xC5d563A36AE78145C45a50134d48A1215220f80a", // Neg Risk Exchange
     ];
 
