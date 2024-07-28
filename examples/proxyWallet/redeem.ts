@@ -7,7 +7,6 @@ import {
     CONDITIONAL_TOKENS_FRAMEWORK_ADDRESS,
     NEG_RISK_ADAPTER_ADDRESS,
     PROXY_WALLET_FACTORY_ADDRESS,
-    USDCE_DIGITS,
     USDC_ADDRESS
 } from "../../src/constants";
 import { encodeRedeem, encodeRedeemNegRisk } from "../../src/encode";
@@ -35,6 +34,7 @@ async function main() {
     // amounts of conditional tokens to redeem. Only used for neg risk redeemds
     // should always have length 2, with the first element being the amount of yes tokens to redeem and the
     // second element being the amount of no tokens to redeem
+    // Only necessary for redeeming neg risk tokens
     const redeemAmounts = ["1", "1"]; 
     
     // Redeem

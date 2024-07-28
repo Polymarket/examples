@@ -23,7 +23,7 @@ async function main() {
 
     // =============== Replace the values below with your values ==========================
     // Safe
-    const safeAddress = "0x6d8c4e9adf5748af82dabe2c6225207770d6b4fa"; // Replace with your safe address
+    const safeAddress = ""; // Replace with your safe address
     const safe = new ethers.Contract(safeAddress, safeAbi, wallet);
 
     const conditionId = ""; // Replace with the market conditionId
@@ -32,6 +32,7 @@ async function main() {
     // amounts of conditional tokens to redeem. Only used for neg risk redeems
     // should always have length 2, with the first element being the amount of yes tokens to redeem and the
     // second element being the amount of no tokens to redeem
+    // Only necessary for redeeming neg risk tokens
     const redeemAmounts = ["1", "1"];
     const data = negRisk ? encodeRedeemNegRisk(conditionId, redeemAmounts) : encodeRedeem(USDC_ADDRESS, conditionId);
     const to = negRisk ? NEG_RISK_ADAPTER_ADDRESS: CONDITIONAL_TOKENS_FRAMEWORK_ADDRESS;

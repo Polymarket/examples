@@ -23,7 +23,7 @@ async function main() {
 
     // =============== Replace the values below with your values ==========================
     // Safe
-    const safeAddress = "0x6d8c4e9adf5748af82dabe2c6225207770d6b4fa"; // Replace with your safe address
+    const safeAddress = ""; // Replace with your safe address
     const safe = new ethers.Contract(safeAddress, safeAbi, wallet);
 
     const splitAmount = "1"; // replace with your split amount
