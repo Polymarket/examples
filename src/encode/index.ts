@@ -1,4 +1,4 @@
-import { BigNumber, ethers } from "ethers";
+import { BigNumber, ethers, BigNumberish } from "ethers";
 import { Interface } from "ethers/lib/utils";
 import { erc20Abi, erc1155Abi, ctfAbi, negRiskAdapterAbi } from "../abis"
 
@@ -63,4 +63,11 @@ export const encodeRedeemNegRisk = (conditionId: string, amounts: string[]): str
         "redeemPositions(bytes32,uint256[])",
         [conditionId, amounts],
     );
+}
+
+export const encodeConvert = (marketId: string, indexSet: BigNumberish, amount: BigNumberish) : string => {
+    return NEG_RISK_INTERFACE.encodeFunctionData(
+        "convertPositions(bytes32,uint256,uint256)",
+        [marketId, indexSet, amount],
+    ); 
 }
