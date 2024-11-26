@@ -3,8 +3,9 @@ import { config as dotenvConfig } from "dotenv";
 import { resolve } from "path";
 
 import { safeAbi } from "../../src/abis";
-import { CONDITIONAL_TOKENS_FRAMEWORK_ADDRESS, NEG_RISK_ADAPTER_ADDRESS, USDCE_DIGITS, USDC_ADDRESS } from "../../src/constants";
-import { encodeMerge } from "../../src/encode";
+import { NEG_RISK_ADAPTER_ADDRESS, USDCE_DIGITS } from "../../src/constants";
+import { encodeConvert } from "../../src/encode";
+import { getIndexSet } from "../../src/utils";
 import { signAndExecuteSafeTransaction } from "../../src/safe-helpers";
 import { SafeTransaction, OperationType } from "../../src/types";
 
@@ -26,13 +27,15 @@ async function main() {
     const safeAddress = ""; // Replace with your safe address
     const safe = new ethers.Contract(safeAddress, safeAbi, wallet);
 
-    const mergeAmount = "1"; // replace with your split amount
-    const conditionId = "0xe64f063b9e2b02f8ac679ebacfb938088c1ddde2a953a1ebfd4a92b802910371"; // Replace with the market conditionId
-    const negRisk = true; // Replace with the neg risk status of the market
+    // Replace with the questionIds of the NO positions to be converted
+    const questionIDs: string[] = [];
+    const indexSet = getIndexSet(questionIDs);
+    const convertAmount = "1"; // Replace with your convert amount
+    // Replace with the event Neg Risk Market Id
+    const marketId = "";
 
-    const data = encodeMerge(USDC_ADDRESS, conditionId, ethers.utils.parseUnits(mergeAmount, USDCE_DIGITS));
-    const to = negRisk ? NEG_RISK_ADAPTER_ADDRESS: CONDITIONAL_TOKENS_FRAMEWORK_ADDRESS;
-
+    const data = encodeConvert(marketId, indexSet, ethers.utils.parseUnits(convertAmount, USDCE_DIGITS));
+    const to = NEG_RISK_ADAPTER_ADDRESS;
 
     const safeTxn: SafeTransaction = {
         to: to,
