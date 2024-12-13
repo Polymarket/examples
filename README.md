@@ -25,5 +25,5 @@ Populate your .env file based on .env.example.
 
 Run examples using ts-node:
 ```bash
-ts-node ts-node examples/safeWallet/split.ts
+ts-node examples/safeWallet/split.ts
 ```
