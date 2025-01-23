@@ -6,6 +6,7 @@ import { safeAbi } from "../../src/abis";
 import { USDCE_DIGITS, USDC_ADDRESS } from "../../src/constants";
 import { encodeErc20Transfer } from "../../src/encode";
 import { signAndExecuteSafeTransaction } from "../../src/safe-helpers";
+import { OperationType, SafeTransaction } from "../../src/types";
 
 
 dotenvConfig({ path: resolve(__dirname, "../../.env") });
@@ -30,8 +31,13 @@ async function main() {
     // Transfers an ERC20 token out of the Safe to the destination address
     const data = encodeErc20Transfer(to, value);
     
-    const token = USDC_ADDRESS;
-    const txn = await signAndExecuteSafeTransaction(wallet, safe, token, data, {gasPrice: 200000000000});
+    const safeTxn: SafeTransaction = {
+        to: USDC_ADDRESS,
+        data: data,
+        operation: OperationType.Call,
+        value: "0",
+    };
+    const txn = await signAndExecuteSafeTransaction(wallet, safe, safeTxn, data, {gasPrice: 200000000000});
     
     console.log(`Txn hash: ${txn.hash}`);
     await txn.wait();
