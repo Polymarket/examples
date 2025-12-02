@@ -1,0 +1,109 @@
+name: Examples usage help
+description: Help us debug issues when running the Polymarket examples locally
+title: "[Examples] "
+labels:
+  - question
+  - examples
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for using the Polymarket examples repository! 🙌
+        Please answer the questions below so we can help you more quickly.
+  - type: input
+    id: example-path
+    attributes:
+      label: Which example are you trying to run?
+      description: |
+        Provide the relative path to the script, for example:
+        `examples/safeWallet/split.ts`
+      placeholder: examples/...
+    validations:
+      required: true
+  - type: input
+    id: run-command
+    attributes:
+      label: Exact command you ran
+      description: |
+        Copy-paste the full command you used to run the example
+        from your terminal.
+      placeholder: ts-node examples/safeWallet/split.ts
+    validations:
+      required: true
+  - type: textarea
+    id: env-setup
+    attributes:
+      label: Environment configuration (no secrets)
+      description: |
+        Describe how you configured your environment:
+        - Did you create a `.env` file from `.env.example`?
+        - Which variables did you set (do NOT include actual secret values)?
+        - Any non-default RPC URLs or custom endpoints?
+      placeholder: |
+        - .env created from .env.example
+        - RPC_URL set to ...
+        - PRIVATE_KEY set (not sharing the actual value)
+    validations:
+      required: true
+  - type: dropdown
+    id: runtime
+    attributes:
+      label: Runtime
+      description: Which runtime are you using to execute the examples?
+      options:
+        - Node.js (ts-node)
+        - Node.js (compiled JavaScript)
+        - Other (please describe below)
+    validations:
+      required: true
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js version
+      description: Output of `node --version`
+      placeholder: v20.x.x
+    validations:
+      required: true
+  - type: input
+    id: package-manager
+    attributes:
+      label: Package manager and version
+      description: Output of `yarn --version` or `npm --version`
+      placeholder: yarn 1.x / yarn 3.x / npm 10.x
+    validations:
+      required: false
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce
+      description: List the steps someone else should follow to see the same problem.
+      placeholder: |
+        1. Clone the repo / open Codespace
+        2. Copy .env.example to .env and fill in values
+        3. Run `yarn install`
+        4. Run `ts-node examples/...`
+        5. Observe the error
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs or error messages
+      description: Paste the full error message and any relevant stack traces.
+      placeholder: |
+        Paste logs here. Wrap them in triple backticks (```logs``` style) if they are long.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: |
+        Any other details that might help us understand the issue:
+        - Did the example work for you before?
+        - Are you using a proxy wallet, safe wallet, or something else?
+        - Any recent changes to your environment?
+      placeholder: Add any extra context here.
+    validations:
+      required: false
