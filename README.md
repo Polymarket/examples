@@ -28,6 +28,15 @@ Code examples for interacting with Safe Wallets are available [here](./examples/
 
 Browser wallets(Metamask, Coinbase Wallet, etc) use Safes on the backend
 
+After populating your `.env` from `.env.example`, you can run a Safe wallet
+example from the repository root with:
+
+ts-node examples/safeWallet/split.ts
+
+
+This runs a simple Safe-based split position flow using the keys and RPC
+configured in your environment.
+
 
 ### Usage
 Populate your .env file based on .env.example.
