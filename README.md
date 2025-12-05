@@ -15,6 +15,11 @@ Only the address associated with the email account can execute functions for the
 
 * Polymarket Safes: This is a slightly modified Gnosis safe to be used with various Browser wallets(including Metamask, Rainbow, Coinbase Wallet,etc). It is a multisig with only 1 signer, the wallet used to sign into the website.
 
+In practice, use Polymarket Proxy examples when authenticating with an email or Magic account,
+and Polymarket Safes examples when connecting a browser wallet such as MetaMask, Rainbow, or
+Coinbase Wallet. Both wallet types expose the same market interactions in these examples; they
+mainly differ in how transactions are authorized and signed.
+
 ### Proxy Wallet Examples
 
 Code examples for interacting with Polymarket Proxy Wallets are available [here](./examples/proxyWallet/README.md)
