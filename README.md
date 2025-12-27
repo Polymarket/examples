@@ -30,9 +30,12 @@ Browser wallets(Metamask, Coinbase Wallet, etc) use Safes on the backend
 
 
 ### Usage
-Populate your .env file based on .env.example.
 
-Run examples using ts-node:
-```bash
+Populate your `.env` file based on `.env.example`.
+
+Run examples using `ts-node` from the repository root, for example:
+Safe wallet example
 ts-node examples/safeWallet/split.ts
-```
+
+Proxy wallet example
+ts-node examples/proxyWallet/redeem.ts
